@@ -1,0 +1,15 @@
+{
+  "name": "platter-best-sellers",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Platter technical challenge: responsive Best Sellers product section built with semantic HTML, TailwindCSS and vanilla JS.",
+  "scripts": {
+    "build": "tailwindcss -i ./src/tailwind.css -o ./css/style.css --minify",
+    "dev": "tailwindcss -i ./src/tailwind.css -o ./css/style.css --watch"
+  },
+  "author": "Akib Shekh",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

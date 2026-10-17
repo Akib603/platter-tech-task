@@ -1,0 +1,93 @@
+/*
+ * Tailwind entry file.
+ * Compiled to /css/style.css with `npm run build` (the compiled file is
+ * committed so the site runs on GitHub Pages without a build step).
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+ * Self-hosted fonts (latin subset, woff2). Paths are relative to /css/.
+ * ------------------------------------------------------------------------- */
+@layer base {
+  @font-face {
+    font-family: 'Bebas Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/bebas-neue-400.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/playfair-display-700.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/poppins-400.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/poppins-600.woff2') format('woff2');
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Components that can't be expressed cleanly with utilities alone.
+ * ------------------------------------------------------------------------- */
+@layer components {
+  /*
+   * Star rating drawn with a single element: a star-shaped mask repeated
+   * 5 times, filled with a hard-stop gradient up to `--rating` (0-5).
+   * Supports fractional ratings (e.g. 4.5) with no extra markup.
+   */
+  .rating-stars {
+    --star-size: 12px;
+    --star-gap: 1px;
+    --fill: calc(var(--rating, 5) / 5 * 100%);
+    display: inline-block;
+    flex-shrink: 0;
+    width: calc((var(--star-size) + var(--star-gap)) * 5);
+    height: var(--star-size);
+    background: linear-gradient(90deg, currentColor var(--fill), theme('colors.neutral.300') var(--fill));
+    -webkit-mask: var(--star-mask) 0 0 / calc(var(--star-size) + var(--star-gap)) var(--star-size) repeat-x;
+    mask: var(--star-mask) 0 0 / calc(var(--star-size) + var(--star-gap)) var(--star-size) repeat-x;
+    --star-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 24'%3E%3Cpath d='M12 1.5l3.1 7 7.4.7-5.6 5 1.7 7.4L12 17.6l-6.6 4 1.7-7.4-5.6-5 7.4-.7z'/%3E%3C/svg%3E");
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Progressive enhancement: the rules below only apply once JS has run
+ * (`.js` is set on <html> by a one-line inline script in <head>).
+ * Without JS every product is visible and the native scrollbar is kept.
+ * ------------------------------------------------------------------------- */
+@layer utilities {
+  /* Hide the native scrollbar; a custom, styleable one replaces it. */
+  .js .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .js .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Mobile: only the first 4 products are shown until "Show More" is pressed. */
+@media (max-width: 767.98px) {
+  .js [data-collapsible]:not([data-expanded]) > :nth-child(n + 5) {
+    display: none;
+  }
+}
