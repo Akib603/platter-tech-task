@@ -30,7 +30,7 @@ No build step is needed to review it: the compiled CSS is committed, so `index.h
 │   └── scrollbar.js      # Desktop custom scrollbar
 ├── fonts/                # Self-hosted woff2 (latin subset)
 ├── images/
-│   ├── products/         # WebP product images, 400w + 720w
+│   ├── products/         # Progressive JPEG product images, 400w + 720w
 │   ├── favicon.svg
 │   └── og-image.jpg
 ├── robots.txt / sitemap.xml
@@ -52,7 +52,7 @@ A one-line script in `<head>` adds a `js` class before first paint. Rules that n
 
 ### Performance
 - **Tailwind CLI instead of the Play CDN.** The CDN script is ~300 KB, compiles in the browser, blocks rendering and isn't meant for production. The compiled CSS is about 13 KB minified.
-- **Images:** square WebP at 400w and 720w with `srcset`/`sizes`, explicit `width`/`height` to prevent layout shift, `fetchpriority="high"` on the LCP image, and `loading="lazy"` below the fold. The 6 collapsed mobile products load nothing until revealed.
+- **Images:** square progressive JPEGs (quality 70) at 400w and 720w with `srcset`/`sizes`, explicit `width`/`height` to prevent layout shift, `fetchpriority="high"` on the LCP image, and `loading="lazy"` below the fold. The 6 collapsed mobile products load nothing until revealed.
 - **Hover images are skipped on touch-only devices:** each one is in a `<picture>` with a `(hover: none)` source that points to a 1px inline GIF.
 - **Self-hosted fonts** (latin subset woff2, ~53 KB) with `font-display: swap`, and the three fonts used above the fold are preloaded. This removes two third-party connections compared with Google Fonts.
 - **JS:** two small classic scripts with `defer`. They are classic scripts rather than ES modules so the page also works when opened from `file://`. Scrollbar updates are batched with `requestAnimationFrame`, and listeners are passive.
