@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akib603.github.io/platter-tech-task/sitemap.xml
